@@ -18,7 +18,7 @@
 </a>
 
 <table class="table table-bordered table-striped">
-    <thead class="table-light">
+    <thead class="table-dark">
     <tr>
         <th>#</th>
         <th>First Name</th>
@@ -33,8 +33,23 @@
         <td th:text="${tempEmployee.employeeFirstName}"></td>
         <td th:text="${tempEmployee.employeeLastName}"></td>
         <td th:text="${tempEmployee.employeeEmail}"></td>
+        <!-- Update and Delete Buttons with equal width and spacing -->
+        <td>
+            <div class="d-flex align-items-center">
+                <a th:href="@{/employees/showFormToUpdate(employeeId=${tempEmployee.employeeId})}"
+                   class="btn btn-info flex-grow-1 me-2">
+                    Update
+                </a>
+                <a th:href="@{/employees/deleteEmployeeById(employeeId=${tempEmployee.employeeId})}"
+                   class="btn btn-danger flex-grow-1"
+                   onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
+                    <b>Delete</b>
+                </a>
+            </div>
+        </td>
     </tr>
     </tbody>
+
 
 </table>
 </div>

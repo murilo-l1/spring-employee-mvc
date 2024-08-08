@@ -27,7 +27,6 @@ public class Employee {
     private String employeeLastName;
 
 
-    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", message = "Invalid e-mail!")
     @Column(name = "email")
     private String employeeEmail;
 

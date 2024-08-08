@@ -1,6 +1,7 @@
 package com.example.employeemvc.controller;
 
 import com.example.employeemvc.entity.Employee;
+import com.example.employeemvc.exception.EmployeeNotFoundException;
 import com.example.employeemvc.exception.InvalidEmployeeCreationException;
 import com.example.employeemvc.services.EmployeeService;
 import jakarta.validation.Valid;
@@ -47,6 +48,24 @@ public class EmployeeRestController {
         }
         // save new Employee if fields are correctly set
         services.saveEmployee(formEmployee);
+        return "redirect:/employees/list";
+    }
+
+    @GetMapping("/showFormToUpdate")
+    public String showFormForUpdate(@RequestParam("employeeId") Integer employeeId, Model model) throws EmployeeNotFoundException{
+        // get Employee from db
+        Employee toUpdateEmployee = services.findEmployeeById(employeeId);
+
+        //add employee to form
+        model.addAttribute("employee", toUpdateEmployee);
+
+        // send user back to form, so he can update selected Employee
+        return "employees/employee-form";
+    }
+
+    @GetMapping("/deleteEmployeeById")
+    public String deleteEmployee(@RequestParam("employeeId") Integer employeeId) throws EmployeeNotFoundException{
+        services.deleteEmployeeById(employeeId);
         return "redirect:/employees/list";
     }
 
