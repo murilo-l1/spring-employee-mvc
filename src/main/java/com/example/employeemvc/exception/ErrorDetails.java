@@ -4,12 +4,11 @@ public class ErrorDetails {
 
     private Long timeStamp;
     private String message;
-    private String cause;
 
-    public ErrorDetails(Long timeStamp, String message, String cause) {
+
+    public ErrorDetails(Long timeStamp, String message) {
         this.timeStamp = timeStamp;
         this.message = message;
-        this.cause = cause;
     }
 
 

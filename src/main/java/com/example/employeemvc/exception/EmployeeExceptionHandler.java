@@ -12,13 +12,20 @@ public class EmployeeExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGlobalException(Exception e){
-        ErrorDetails errorDetails = new ErrorDetails(new Date().getTime(), e.getMessage(), e.getCause().toString());
+        ErrorDetails errorDetails = new ErrorDetails(new Date().getTime(), e.getMessage());
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(EmployeeNotFoundException.class)
     public ResponseEntity<?> handleEmployeeNotFoundException(Exception ex){
-        ErrorDetails errorDetails = new ErrorDetails(new Date().getTime(), ex.getMessage(), ex.getCause().toString());
+        ErrorDetails errorDetails = new ErrorDetails(new Date().getTime(), ex.getMessage());
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(InvalidEmployeeCreationException.class)
+    public ResponseEntity<?> handleInvalidRequestException(Exception ex){
+        ErrorDetails errorDetails = new ErrorDetails(new Date().getTime(), ex.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
 }
