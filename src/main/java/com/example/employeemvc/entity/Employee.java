@@ -1,6 +1,11 @@
 package com.example.employeemvc.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="employee")
@@ -11,12 +16,18 @@ public class Employee {
     @Column(name="id")
     private Integer employeeId;
 
+    @NotBlank(message = "Field is required!")
+    @Size(min =3, message = "Longer name required!")
     @Column(name = "first_name")
     private String employeeFirstName;
 
+    @Size(min = 3, message = "Longer last name required!")
+    @NotBlank(message = "Field is required!")
     @Column(name = "last_name")
     private String employeeLastName;
 
+
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", message = "Invalid e-mail!")
     @Column(name = "email")
     private String employeeEmail;
 

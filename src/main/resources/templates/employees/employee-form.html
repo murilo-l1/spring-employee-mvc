@@ -11,26 +11,41 @@
     <h1>Register Employee Form</h1>
     <hr>
     <p class="h3 mb-4">Submit Employee</p>
-    <form action="#" th:action="@{/employees/save}"
-                     th:object="${employee}" method="POST">
-        <input type="text" th:field="*{employeeFirstName}"
-                class="form-control mb-4 w-25" placeholder="First Name">
+    <form th:action="@{/employees/save}" th:object="${employee}" method="POST">
 
-        <input type="text" th:field="*{employeeLastName}"
-                class="form-control mb-4 w-25" placeholder="Last Name">
-        
-        <input type="text" th:field="*{employeeEmail}"
-                class="form-control mb-4 w-25" placeholder="E-mail">
+        <!-- First Name -->
+        <div class="mb-4 w-25">
+            <input type="text" th:field="*{employeeFirstName}"
+                   class="form-control" placeholder="First Name"
+                   th:classappend="${#fields.hasErrors('employeeFirstName')}? 'is-invalid'">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('employeeFirstName')}"
+                 th:errors="*{employeeFirstName}">First name is required</div>
+        </div>
 
+        <!-- Last Name -->
+        <div class="mb-4 w-25">
+            <input type="text" th:field="*{employeeLastName}"
+                   class="form-control" placeholder="Last Name"
+                   th:classappend="${#fields.hasErrors('employeeLastName')}? 'is-invalid'">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('employeeLastName')}"
+                 th:errors="*{employeeLastName}">Last name is required</div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-4 w-25">
+            <input type="text" th:field="*{employeeEmail}"
+                   class="form-control" placeholder="example@email.com"
+                   th:classappend="${#fields.hasErrors('employeeEmail')}? 'is-invalid'">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('employeeEmail')}"
+                 th:errors="*{employeeEmail}">E-mail not valid</div>
+        </div>
+
+        <!-- Buttons -->
         <button type="submit" class="btn btn-success col-2">Save</button>
         <button type="reset" class="btn btn-outline-secondary col-1">Clear</button>
     </form>
     <hr>
-    <a th:href="@{/employees/list}"
-    class="btn btn-outline-primary">
-       Go back to List
-    </a>
-
+    <a th:href="@{/employees/list}" class="btn btn-outline-primary">Go back to List</a>
 </div>
 </body>
 </html>

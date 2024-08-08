@@ -3,9 +3,11 @@ package com.example.employeemvc.controller;
 import com.example.employeemvc.entity.Employee;
 import com.example.employeemvc.exception.InvalidEmployeeCreationException;
 import com.example.employeemvc.services.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,9 +41,12 @@ public class EmployeeRestController {
     }
 
     @PostMapping("/save")
-    public String addEmployee(@ModelAttribute("employee") Employee formEmployee) throws InvalidEmployeeCreationException {
+    public String addEmployee(@Valid @ModelAttribute("employee") Employee formEmployee, BindingResult result) throws InvalidEmployeeCreationException {
+        if(result.hasErrors()){
+            return "employees/employee-form";
+        }
+        // save new Employee if fields are correctly set
         services.saveEmployee(formEmployee);
-
         return "redirect:/employees/list";
     }
 
